@@ -1,0 +1,12 @@
+* A* Algorithm in JavaScript
+
+Implemented in 90 minutes for the March 2014 West London Hack
+Night. Dirty, dirty, dirty.
+
+** To Run
+
+#+BEGIN_SRC sh
+git clone ...
+npm install
+node astar.js
+#+END_SRC
