@@ -22,10 +22,6 @@ var grid = [[0, 1, 0, 0, 0, 1, 0, 0, 0],
 var start = [0, 0];
 var goal  = [8, 7];
 
-var is_blocked = function(grid, point) {
-	return true;
-};
-
 var value_at = function(point) {
 	var row = grid[point[0]];
 
