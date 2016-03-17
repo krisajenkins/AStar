@@ -11,7 +11,7 @@ var same_point = function (a, b) {
 var grid = [[0, 1, 0, 0, 0, 1, 0, 0, 0],
 			[0, 1, 0, 1, 0, 1, 0, 0, 1],
 			[0, 1, 0, 1, 0, 1, 0, 0, 1],
-			[0, 1, 0, 1, 0, 1, 0, 0, 1],
+			[0, 1, 0, 0, 0, 1, 0, 0, 1],
 			[0, 1, 0, 1, 0, 1, 0, 1, 1],
 			[0, 1, 0, 1, 0, 1, 0, 0, 1],
 			[0, 1, 0, 1, 0, 1, 0, 1, 1],
@@ -66,7 +66,7 @@ var best_guess = function(f_score, points) {
 
 var remove_point = function(points, point) {
 	var new_points = [], i;
-	
+
 	for (i = 0; i < points.length; i++) {
 		if (! same_point(points[i], point)) {
 			new_points.push(points[i]);
@@ -83,7 +83,6 @@ var reconstruct_path = function (came_from, node, path) {
 		reconstruct_path(came_from, previous, path);
 	}
 };
-
 var a_star = function() {
 	var closed_set = [];
 	var open_set = [start];
@@ -109,7 +108,7 @@ var a_star = function() {
 			neighbours_of(current),
 			function (neighbour) {
 				if (! contains(closed_set, neighbour)) {
-					var tentative_g_score = g_score[current] + distance_between(current,neighbour);
+					var tentative_g_score = g_score[current] + distance_between(current, neighbour);
 
 					if (
 						! contains(open_set, neighbour)
@@ -130,18 +129,19 @@ var a_star = function() {
 	}
 };
 
-var print_grid = function(path) {
+var print_grid = function(start, goal, grid, path) {
 	var row, col, line;
 	for (row = 0; row < grid.length; row++) {
 		line = "";
 		for (col = 0; col < grid[0].length; col++) {
-			if (same_point(start, [row, col])) {
+			var point = [row, col];
+			if (same_point(start, point)) {
 				line += "S";
-			} else if (same_point(goal, [row, col])) {
+			} else if (same_point(goal, point)) {
 				line += "E";
-			} else if (contains(path, [row, col])) {
+			} else if (contains(path, point)) {
 				line += "*";
-			} else if (value_at([row, col]) === 1) {
+			} else if (value_at(point) === 1) {
 				line += "X";
 			} else {
 				line += " ";
@@ -151,5 +151,4 @@ var print_grid = function(path) {
 	}
 };
 
-print_grid(a_star());
-
+print_grid(start, goal, grid, a_star());
